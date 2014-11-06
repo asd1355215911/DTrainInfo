@@ -41,7 +41,6 @@ def showInfo(train_list):
 
         # open browser if match, and stop query
         webbrowser.open('https://kyfw.12306.cn/otn/leftTicket/init')
-        input()
     else:
         print('没有匹配的车次')
     print('\n')
@@ -51,6 +50,7 @@ def queryInfo(date):
         根据日期查询12306列车数据
     """
     url = 'https://kyfw.12306.cn/otn/leftTicket/query?leftTicketDTO.train_date={0}&leftTicketDTO.from_station=NGH&leftTicketDTO.to_station=HGH&purpose_codes=ADULT'.format(date)
+
 
     res = urllib.request.urlopen(url)
 
@@ -62,9 +62,11 @@ def queryInfo(date):
 
         if train_list:
             dtrain_list = list(filter(filterDtrainByTimeAndSeat, train_list))
-        showInfo(dtrain_list)
+            showInfo(dtrain_list)
+        else:
+            print('无匹配数据')
     else:
-        print('该日期无数据')
+        print('无匹配数据')
 
 def parseConfig():
     configFile = open('config.txt')
